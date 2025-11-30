@@ -1,0 +1,6 @@
+resources:
+  - app-configmap.yaml
+  - deployment.yaml
+  - nginx-configmap.yaml
+  - phpfpm-config.yaml
+  - service.yaml

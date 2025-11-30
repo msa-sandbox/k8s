@@ -1,0 +1,7 @@
+resources:
+  - app/
+  - db/
+  - redis/
+  - secrets/
+  - ingress.yaml
+  - namespace.yaml

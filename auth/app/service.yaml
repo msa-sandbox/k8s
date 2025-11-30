@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: auth
+spec:
+  type: ClusterIP
+  selector:
+    app: auth
+  ports:
+    - name: nginx
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: metrics
+      protocol: TCP
+      port: 9253
+      targetPort: 9253
