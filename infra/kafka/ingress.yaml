@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kafka-ingress
+  namespace: infra
+spec:
+  rules:
+    - host: infra.local
+      http:
+        paths:
+          - path: /kafdrop
+            pathType: Prefix
+            backend:
+              service:
+                name: kafdrop
+                port:
+                  number: 9000
+  tls:
+    - hosts:
+        - infra.local
+      secretName: infra-tls

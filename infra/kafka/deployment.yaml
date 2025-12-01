@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka
+  namespace: infra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      volumes:
+        - name: kafka-data
+          emptyDir: {}
+        - name: init-scripts
+          configMap:
+            name: kafka-init-scripts
+            defaultMode: 0755
+      containers:
+        - name: kafka
+          image: apache/kafka:4.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9092
+              name: broker
+          envFrom:
+            - configMapRef:
+                name: kafka-config
+          volumeMounts:
+            - name: kafka-data
+              mountPath: /tmp/kraft-combined-logs

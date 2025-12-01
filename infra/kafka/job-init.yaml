@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-init-job
+  namespace: infra
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: kafka-init
+          image: apache/kafka:4.1.0
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "/init-topics.sh"]
+          envFrom:
+            - configMapRef:
+                name: kafka-config
+          volumeMounts:
+            - name: init-scripts
+              mountPath: /init-topics.sh
+              subPath: init-topics.sh
+      volumes:
+        - name: init-scripts
+          configMap:
+            name: kafka-init-scripts
+            defaultMode: 0755

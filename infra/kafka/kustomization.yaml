@@ -2,8 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - app-configmap.yaml
+  - kafdrop
+  - configmaps
   - deployment.yaml
-  - nginx-configmap.yaml
-  - phpfpm-config.yaml
   - service.yaml
+  - ingress.yaml
+  - job-init.yaml
+
