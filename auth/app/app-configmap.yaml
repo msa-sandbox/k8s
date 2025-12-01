@@ -11,5 +11,6 @@ data:
   KAFKA_TOPIC: "user-events"
   JWT_SECRET_KEY: "/var/www/app/config/jwt/private.pem"
   JWT_PUBLIC_KEY: "/var/www/app/config/jwt/public.pem"
+  CORS_ALLOW_ORIGIN: "^https?://(web\\.local)(:[0-9]+)?$"
   UID: "1000"
   GID: "1000"

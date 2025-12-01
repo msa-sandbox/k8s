@@ -1,23 +1,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: auth-ingress
-  namespace: auth
+  name: web-ingress
+  namespace: web
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
     - hosts:
-        - auth.local
-      secretName: auth-tls
+        - web.local
+      secretName: web-tls
   rules:
-    - host: auth.local
+    - host: web.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: app-service
+                name: web-service
                 port:
                   number: 80

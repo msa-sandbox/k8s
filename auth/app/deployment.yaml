@@ -79,7 +79,8 @@ spec:
             - name: app-code
               mountPath: /var/www/app
             - name: nginx-conf
-              mountPath: /etc/nginx/conf.d
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
         - name: phpfpm-metrics
           image: hipages/php-fpm_exporter:2.2.0
           imagePullPolicy: IfNotPresent

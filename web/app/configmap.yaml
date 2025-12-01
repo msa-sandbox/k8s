@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: web
+data:
+  # They are useless since npm is within prod
+  AUTH_URL: "https://auth.local"
+  CRM_URL: "https://crm.local"

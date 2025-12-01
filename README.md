@@ -31,8 +31,7 @@ The application consists of four core services:
      --driver=docker \
      --cpus=6 \
      --memory=8192 \
-     --addons=ingress,metrics-server,dashboard \
-     --kubernetes-version=v1.30.0
+     --addons=ingress,metrics-server,dashboard
 ```
 
 This ensures a stable and reproducible environment with Nginx ingress, metrics collection, and the Kubernetes dashboard enabled by default.
