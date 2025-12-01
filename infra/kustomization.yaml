@@ -4,5 +4,10 @@ kind: Kustomization
 namespace: infra
 
 resources:
+  - grafana
+  - kube-state-metrics
   - kafka
+  - loki
+  - node-exporter
+  - prometheus
   - namespace.yaml

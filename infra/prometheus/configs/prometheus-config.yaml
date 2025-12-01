@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: infra
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+
+    scrape_configs:
+      # Collect metrics from prometheus itself
+      - job_name: 'prometheus'
+        metrics_path: /prometheus/metrics
+        static_configs:
+          - targets: ['localhost:9090']
+
+      # Metrics from auth service
+      - job_name: 'auth-service'
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+          - targets: ['auth.local']
+        tls_config:
+          insecure_skip_verify: true
+
+      # Node Exporter (node resource usage)
+      - job_name: 'node-exporter'
+        static_configs:
+          - targets: ['node-exporter.infra.svc.cluster.local:9100']
+
+      # Kube-state-metrics (pod state from deployment)
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: ['kube-state-metrics.infra.svc.cluster.local:8080']
