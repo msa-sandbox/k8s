@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alloy-config
+  namespace: infra
+data:
+  alloy.yaml: |
+    logging {
+      level = "info"
+      format = "logfmt"
+    }
+        
+    loki.write "default" {
+      endpoint {
+        url = "http://loki.infra.svc.cluster.local:3100/loki/api/v1/push"
+      }
+    }
+        
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+        
+    local.file_match "pod_logs" {
+      path_targets = [{
+        __path__ = "/var/log/pods/*/*/*.log",
+      }]
+    }
+      
+    loki.source.file "logs" {
+      targets = local.file_match.pod_logs.targets
+      forward_to = [loki.process.k8s.receiver]
+    }
